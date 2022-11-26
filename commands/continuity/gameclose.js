@@ -1,5 +1,4 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const participantSchema = require('../../models/participant-schema');
 const roleSchema = require('../../models/role-schema');
 
 module.exports = {
