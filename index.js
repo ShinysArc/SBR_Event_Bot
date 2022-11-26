@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, Partials } = require('discord.js')
+const { Client, GatewayIntentBits, Partials, ActivityType } = require('discord.js')
 const WOKCommands = require('wokcommands')
 const path = require('path')
 require('dotenv').config()
@@ -22,6 +22,13 @@ client.on('ready', () => {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     }
+    client.user.setPresence({
+        activities: [{
+            name: 'la course',
+            type: ActivityType.Watching
+        }],
+        status: 'dnd',
+    })
 
     console.log('Bot is ready!');
 
@@ -30,7 +37,7 @@ client.on('ready', () => {
         commandsDir: path.join(__dirname, 'commands'),
         events: {
             // Where the events are stored
-            dir: path.join(__dirname, "events"),
+            dir: path.join(__dirname, 'events'),
           },
         dbOptions,
         mongoUri: process.env.MONGO_URI
