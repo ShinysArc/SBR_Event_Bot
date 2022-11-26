@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits } = require('discord.js')
+const { Client, GatewayIntentBits, Partials } = require('discord.js')
 const WOKCommands = require('wokcommands')
 const path = require('path')
 require('dotenv').config()
@@ -11,6 +11,9 @@ const client = new Client({
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMessageReactions,
     ],
+    partials: [
+        Partials.Message, Partials.Reaction
+    ]
 })
 
 client.on('ready', () => {
@@ -25,6 +28,10 @@ client.on('ready', () => {
     new WOKCommands({
         client,
         commandsDir: path.join(__dirname, 'commands'),
+        events: {
+            // Where the events are stored
+            dir: path.join(__dirname, "events"),
+          },
         dbOptions,
         mongoUri: process.env.MONGO_URI
     })

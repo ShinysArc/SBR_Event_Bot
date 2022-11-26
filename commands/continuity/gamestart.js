@@ -1,8 +1,39 @@
-
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const participantSchema = require('../../models/participant-schema');
 
 module.exports = {
     name: 'gamestart',
     description: 'gamestart',
+    init: (client) => {
+        client.on('interactionCreate', async (interaction) => {
+            if (!interaction.isButton())
+                return;
+
+            const member = interaction.member;
+            let role = member.guild.roles.cache.find((f) => f.name === 'Participant');
+            if (!role) {
+                role = await member.guild.roles.create({
+                    name: 'Participant',
+                    reason: 'Le rôle Participant est nécessaire pour le bon fonctionnement du bot.',
+                });
+            }
+
+            if (member.roles.cache.some(r => r.name === "Participant")) {
+                member.roles.remove(role);
+                const p = await participantSchema.findOneAndDelete({
+                    id: member.id
+                });
+                interaction.reply({ content: "Tu n'as plus le rôle Participant !", ephemeral: true });
+            } else {
+                member.roles.add(role);
+                const p = await participantSchema.create({
+                    id: member.id,
+                    points: 0
+                });
+                interaction.reply({ content: 'Rôle Participant ajouté !', ephemeral: true });
+            }
+        });
+    },
     callback: async (message) => {
         if (!message.member.roles.cache.some(r => r.name === "Staff")) {
             message.message.reply('bonsoir non');
@@ -25,7 +56,16 @@ Que le meilleur gagne.
 
 ||@everyone||`;
         const reactionMessage = await message.channel.send(msg);
-        reactionMessage.react('🏇');
+        const button = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setCustomId('primary')
+					.setLabel('Participer !')
+                    .setEmoji('🏇')
+					.setStyle(ButtonStyle.Primary),
+			);
+        reactionMessage.edit({components: [button]});
+
         message.message.delete();
     },
 }
