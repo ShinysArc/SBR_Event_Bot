@@ -1,5 +1,6 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const participantSchema = require('../../models/participant-schema');
+const roleSchema = require('../../models/role-schema');
 
 module.exports = {
     name: 'gamestart',
@@ -15,6 +16,10 @@ module.exports = {
                 role = await member.guild.roles.create({
                     name: 'Participant',
                     reason: 'Le rôle Participant est nécessaire pour le bon fonctionnement du bot.',
+                });
+                await roleSchema.create({
+                    id: role.id,
+                    name: role.name
                 });
             }
 
