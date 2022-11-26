@@ -1,4 +1,6 @@
 const { Client, GatewayIntentBits } = require('discord.js')
+const WOKCommands = require('wokcommands')
+const path = require('path')
 require('dotenv').config()
 
 const client = new Client({
@@ -12,13 +14,20 @@ const client = new Client({
 })
 
 client.on('ready', () => {
-    console.log('Ready!')
-});
-
-client.on('messageCreate', async (message) => {
-    if (message.content === '!ping') {
-        await message.reply('Pong!')
+    const dbOptions = {
+        keepAlive: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
     }
+
+    console.log('Bot is ready!');
+
+    new WOKCommands({
+        client,
+        commandsDir: path.join(__dirname, 'commands'),
+        dbOptions,
+        mongoUri: process.env.MONGO_URI
+    })
 })
 
 client.login(process.env.TOKEN)
