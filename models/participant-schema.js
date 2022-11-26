@@ -8,7 +8,10 @@ const reqString = {
 
 const schema = new Schema({
     id: reqString,
-    points: reqString
+    points: {
+        type: Number,
+        required: true,
+    }
 })
 
 module.exports = mongoose.models['participants'] || mongoose.model('participants', schema);
