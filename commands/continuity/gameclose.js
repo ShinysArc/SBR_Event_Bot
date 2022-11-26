@@ -3,16 +3,21 @@ const participantSchema = require('../../models/participant-schema');
 const roleSchema = require('../../models/role-schema');
 
 module.exports = {
-    name: 'gamestop',
-    description: 'gamestop',
+    name: 'gameclose',
+    description: 'gameclose',
     callback: async (message) => {
         if (!message.member.roles.cache.some(r => r.name === "Staff")) {
             message.message.reply('bonsoir non');
             return;
         }
-        
+        const role = await roleSchema.findOne({ name: 'Participant' });
+
         const msg = `
-Bonjour`;
+Vous ne pouvez désormais plus vous inscrire !
+Les jeux vont bientôt démarrer.
+Que le meilleur gagne.
+
+||<@&${role.id}>||`
         const reactionMessageSchema = await roleSchema.findOne({ name: 'Participant' });
         const button = new ActionRowBuilder()
 			.addComponents(
@@ -30,6 +35,8 @@ Bonjour`;
         const channel = message.client.channels.cache.get(channelId);
         const reactionMessage = await channel.messages.fetch(reactionMessageId);
         reactionMessage.edit({ components: [button] });
+
+        await message.channel.send(msg);
 
         message.message.delete();
     },
