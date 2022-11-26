@@ -25,10 +25,10 @@ module.exports = {
         client = message.client;
 
         const embed = new EmbedBuilder()
-            .setTitle('Scoreboard')
+            .setTitle('Classement de la SBR')
             .setColor(0x00FF00)
             .setTimestamp()
-            .setDescription(String(overall.map((u, index) => `#${index + 1} - ${client.users.cache.get(u.id) ? client.users.cache.get(u.id).tag : u.id} - ${u.points}`)));
+            .setDescription(String(overall.map((u, index) => `#**${index + 1} ${client.users.cache.get(u.id).tag.slice(0, -5)}** - ${u.points} points`)));
         await message.channel.send({ content: publicMessage, embeds: [embed] });
         message.message.delete();
     },
