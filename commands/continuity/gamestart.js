@@ -19,7 +19,9 @@ module.exports = {
                 });
                 await roleSchema.create({
                     id: role.id,
-                    name: role.name
+                    name: role.name,
+                    channelId: interaction.channel.id,
+                    messageId: interaction.message.id,
                 });
             }
 
@@ -69,8 +71,8 @@ Que le meilleur gagne.
                     .setEmoji('🏇')
 					.setStyle(ButtonStyle.Primary),
 			);
-        reactionMessage.edit({components: [button]});
 
+        reactionMessage.edit({ components: [button] });
         message.message.delete();
     },
 }

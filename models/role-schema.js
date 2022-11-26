@@ -9,6 +9,8 @@ const reqString = {
 const schema = new Schema({
     id: reqString,
     name: reqString,
+    channelId: reqString,
+    messageId: reqString,
 })
 
 module.exports = mongoose.models['role'] || mongoose.model('role', schema);
