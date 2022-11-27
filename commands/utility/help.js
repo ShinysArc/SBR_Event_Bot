@@ -19,7 +19,6 @@ Voici les commandes supportées:
 **!question - <réponse> - <points>** - Le premier à donner <réponse> gagne <points>.
 **!privatescoreboard** - Envoie le <scoreboard> des points à la personne ayant rentré la commande.
 **!publicscoreboard <message>** - Affiche le <scoreboard> avec <message> dans le channel.
-**!final** - Fait plein de trucs compliqués faites pas attention svp mrc.
 
 **__Démarrage:__**
 **!gamestart** - Démarre l'event, donne le rôle "Participant" à ceux qui réagissent.
