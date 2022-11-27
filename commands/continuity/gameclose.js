@@ -22,7 +22,7 @@ Que le meilleur gagne.
 			.addComponents(
 				new ButtonBuilder()
 					.setCustomId('primary')
-					.setLabel('Inscription terminée')
+					.setLabel('Inscriptions terminées')
                     .setEmoji('🏇')
 					.setStyle(ButtonStyle.Danger)
                     .setDisabled(true),
