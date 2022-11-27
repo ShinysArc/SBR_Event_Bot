@@ -13,7 +13,8 @@ module.exports = {
         const role = message.guild.roles.cache.find(r => r.name === 'Participant');
         await roleSchema.deleteOne({ name: 'Participant' });
         await participantSchema.deleteMany();
-        await role.delete();
+        if (role)
+            await role.delete();
         message.message.delete();
         await message.channel.send(msg);
     },
