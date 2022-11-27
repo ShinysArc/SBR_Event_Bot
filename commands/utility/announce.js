@@ -5,7 +5,7 @@ module.exports = {
     name: 'announce',
     description: 'Affiche une annonce',
     callback: async (message) => {
-        if (!message.member.roles.cache.some(r => r.name === "Staff")) {
+        if (!message.member.roles.cache.some(r => r.name === "Staff" || r.name === "Joestar (Administrateur)")) {
             message.message.reply('bonsoir non');
             return;
         }
