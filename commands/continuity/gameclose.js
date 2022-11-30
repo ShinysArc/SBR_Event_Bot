@@ -14,7 +14,7 @@ module.exports = {
         const msg = `
 Vous ne pouvez désormais plus vous inscrire !
 Les jeux vont bientôt démarrer.
-Que le meilleur gagne.
+Que les meilleur-e-s gagnent.
 
 ||<@&${role.id}>||`
         const reactionMessageSchema = await roleSchema.findOne({ name: 'Participant' });
