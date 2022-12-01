@@ -5,6 +5,8 @@ const roleSchema = require('../../models/role-schema');
 module.exports = {
     name: 'publicscoreboard',
     description: 'publicscoreboard',
+    minArgs: 1,
+    maxArgs: 1,
     callback: async (message) => {
         if (!message.member.roles.cache.some(r => r.name === "Staff" || r.name === "Joestar (Administrateur)")) {
             message.message.reply('bonsoir non');

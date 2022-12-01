@@ -3,6 +3,7 @@ const participantSchema = require('../../models/participant-schema');
 module.exports = {
     name: 'remove',
     description: 'remove',
+    minArgs: 2,
     callback: async (message) => {
         if (!message.member.roles.cache.some(r => r.name === "Staff" || r.name === "Joestar (Administrateur)")) {
             message.message.reply('bonsoir non');
@@ -10,9 +11,9 @@ module.exports = {
         }
 
         const msgArr = message.message.content.split(' ');
-        const target = message.message.mentions.members.first() || message.guild.members.cache.get(msgArr[2]);
+        const target = message.message.mentions.members.first();
         if (!target.roles.cache.some(r => r.name === "Participant")) {
-            message.reply('Le participant n\'a pas le rôle Participant');
+            message.message.reply('L\'utilisateur n\'a pas le rôle Participant');
             return;
         }
 
