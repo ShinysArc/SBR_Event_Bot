@@ -20,12 +20,20 @@ module.exports = {
         const data = await participantSchema.find({});
         const overall = data.sort((a, b) => b.points - a.points).slice(0 + page * 10, 10 + page * 10);
         client = message.client;
+        let IDs = []
+        overall.map((u) => {
+            IDs.push(client.users.fetch(u.id).then(us => us.id))
+        })
+
+        let users = await Promise.all(IDs);
+        let desc = ""
+        overall.map((u, index) => desc += `#**${index + 1}   <@${users[index]}>** - ${u.points} point(s)\n`)
 
         const embed = new EmbedBuilder()
             .setTitle('Classement de la SBR')
             .setColor(0x00FF00)
             .setTimestamp()
-            .setDescription(String(overall.map((u, index) => `#**${index + 1} ${client.users.cache.get(u.id).tag.slice(0, -5)}** - ${u.points} points`)));
+            .setDescription(desc);
         await message.message.author.send({ embeds: [embed] });
         message.message.delete();
     },
