@@ -4,6 +4,8 @@ module.exports = {
     name: 'remove',
     description: 'remove',
     minArgs: 2,
+    maxArgs: 2,
+    correctSyntax: "Correct syntax: !remove <@user> <nb_points>",
     callback: async (message) => {
         if (!message.member.roles.cache.some(r => r.name === "Staff" || r.name === "Joestar (Administrateur)")) {
             message.message.reply('bonsoir non');
