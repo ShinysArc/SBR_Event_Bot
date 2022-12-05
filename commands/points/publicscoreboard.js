@@ -6,7 +6,6 @@ module.exports = {
     name: 'publicscoreboard',
     description: 'publicscoreboard',
     minArgs: 1,
-    maxArgs: 1,
     correctSyntax: "Correct syntax: !publicscoreboard <message>",
     callback: async (message) => {
         if (!message.member.roles.cache.some(r => r.name === "Staff" || r.name === "Joestar (Administrateur)")) {
